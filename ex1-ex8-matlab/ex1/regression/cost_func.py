@@ -10,21 +10,19 @@ def calc_cost(X, Y, theta):
 def grad_descent(X, Y, theta, ALPHA = 0.001, ITERS = 10000, TOL = 1E-3):
 
     m = 2*len(Y)
-    COST_DIFF_HISTORY = []
+    COST = [calc_cost(X, Y, theta)]
 
     for i in range(ITERS):
-        COST_OLD = calc_cost(X, Y, theta)
         HYPOTHESIS = X @ theta
         SLOPE = (ALPHA/m)*(HYPOTHESIS - Y).T @ X
         theta = theta - SLOPE.T
-        COST = calc_cost(X, Y, theta)
-        COST_DIFF = abs(COST - COST_OLD)
-        COST_DIFF_HISTORY.append(COST)
+        COST.append(calc_cost(X, Y, theta))
+        COST_DIFF = abs(COST[i+1] - COST[i])
         if max(COST_DIFF) < TOL:
             break
 
-    COST_DIFF_HISTORY = np.asmatrix(COST_DIFF_HISTORY)
-    return theta, COST_DIFF_HISTORY
+    COST = np.asmatrix(COST)
+    return theta, COST
 
 def normal_eqn(X, Y):
     mat_matT = X.T @ X
