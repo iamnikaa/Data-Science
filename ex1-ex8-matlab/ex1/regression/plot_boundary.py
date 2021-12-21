@@ -42,6 +42,6 @@ def plot_boundary(theta, minr=-1.5, maxr=1.5, deg=2, norm=1, meanmat=[], stdmat=
     except:
         print('Error in inputs')
             
-    cl1 = plt.contour(x, y, Y_plot, levels=[0])
+    cl1 = plt.contour(x, y, Y_plot.T, levels=[0])
     plt.clabel(cl1, inline=1)
-    return cl1, Y_plot
+    return cl1, Y_plot.T
